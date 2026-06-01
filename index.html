@@ -713,7 +713,7 @@ var QQ = ["Дисциплина — это свобода, которую ты �
 function sv(k,v){
   try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}
   // Auto-sync to Firebase after every save
-  if(k==='trk_v9' && _fbDb && _fbUid){
+  if(k==='trk_v9' && _fbDb && _fbUid && !_fbLoading){
     clearTimeout(sv._t);
     sv._t = setTimeout(function(){
       _fbDb.collection('users').doc(_fbUid).set({
@@ -2527,6 +2527,7 @@ function copyWeightLog(days){ _wlDays=days; wlCopy(); }
 var _fbApp = null;
 var _fbDb  = null;
 var _fbUid = null;
+var _fbLoading = false; // prevents upload loop during download
 // Hardcoded Firebase config
 var _fbCfg = {
   apiKey: "AIzaSyD5My3hBQ14tzORODVV1GWbNQHAyRO-guA",
@@ -2630,23 +2631,27 @@ function fbSync(upload){
       if(doc.exists && doc.data().data){
         try{
           var remote = JSON.parse(doc.data().data);
-          // Merge: prefer remote if newer
+          _fbLoading = true; // block auto-upload while we apply remote data
           D = remote;
-          if(!D.profile) D.profile={};
+          if(!D.profile)   D.profile={};
           if(!D.weightLog) D.weightLog=[];
-          if(!D.vitamins) D.vitamins=[];
-          if(!D.habits) D.habits=[];
-          if(!D.cfg) D.cfg={periodStart:'2026-06-01',periodEnd:'2026-08-01'};
+          if(!D.vitamins)  D.vitamins=[];
+          if(!D.habits)    D.habits=[];
+          if(!D.toolbars)  D.toolbars=[];
+          if(!D.cfg)       D.cfg={periodStart:'2026-06-01',periodEnd:'2026-08-01'};
           if(D.cfg.periodStart){SD=new Date(D.cfg.periodStart);ED=new Date(D.cfg.periodEnd);TD=Math.round((ED-SD)/86400000);}
-          sv('trk_v9', D);
+          // Save to localStorage only (no firebase re-upload)
+          try{localStorage.setItem('trk_v9',JSON.stringify(D));}catch(e){}
+          _fbLoading = false;
           updateHeader(); renderAll();
           var now = new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'});
           if(lastEl) lastEl.textContent = '✅ Загружено из облака в '+now;
-        } catch(e){
-          if(lastEl) lastEl.textContent = '❌ Ошибка разбора данных';
+        } catch(err){
+          _fbLoading = false;
+          if(lastEl) lastEl.textContent = '❌ Ошибка разбора данных: '+err.message;
         }
       } else {
-        // No remote data yet — upload current
+        // No remote data yet — upload current local data
         fbSync(true);
       }
     }).catch(function(e){
@@ -2660,9 +2665,10 @@ function fbAutoInit(){
   fbInit(function(ok){
     if(ok){
       fbUpdateUI();
-      fbSync(false); // auto-download on start
+      // Small delay to ensure localStorage D is fully loaded first
+      setTimeout(function(){ fbSync(false); }, 500);
     } else {
-      console.log('Firebase init failed');
+      console.log('Firebase init failed, using local data');
     }
   });
 }
