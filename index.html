@@ -303,7 +303,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Golos Text',sans-serif;mi
         <span id="today_bar_pct" style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--mu)">0%</span>
       </div>
     </div>
-    <div style="height:10px;background:rgba(0,0,0,.3);border-radius:99px;overflow:hidden">
+    <div style="height:14px;background:rgba(0,0,0,.3);border-radius:99px;overflow:hidden">
       <div id="today_bar_fill" style="height:100%;border-radius:99px;width:0%;background:var(--mu);transition:width .6s"></div>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:9px;opacity:.25;margin-top:3px;padding:0 2px">
@@ -3053,88 +3053,79 @@ function renderVitamins(){
 }
 
 function renderMainMiniWidgets(){
-  var el = document.getElementById('main_mini_widgets');
+  var el=document.getElementById('main_mini_widgets');
   if(!el) return;
   var cfg=D.cfg||{};
-  if(cfg.show_weight===false && cfg.show_vit===false){el.innerHTML='';el.style.display='none';return;}
+  var showW=cfg.show_weight!==false;
+  var showV=cfg.show_vit!==false;
+  if(!showW && !showV){el.innerHTML='';el.style.display='none';return;}
   el.style.display='grid';
-  var p = D.profile||{};
-  var log = D.weightLog||[];
-  var vits = D.vitamins||[];
+  el.innerHTML='';
 
-  // вес
+  var p=D.profile||{};
+  var log=D.weightLog||[];
+  var vits=D.vitamins||[];
+
+  // Weight card
   if(showW){
-  var latest = log.length ? log[log.length-1].w : null;
-  var wtColor = '#00d4aa';
-  var wtVal = latest ? latest.toFixed(1)+' кг' : '— кг';
-  var wtPct = 0;
-  if(latest && p.startWeight && p.goalWeight){
-    var tn = Math.abs(p.goalWeight - p.startWeight);
-    var dn = Math.abs(latest - p.startWeight);
-    wtPct = tn>0 ? Math.min(100,Math.round(dn/tn*100)) : 0;
-    var diff = Math.round((latest - p.startWeight)*10)/10;
-    wtColor = diff<=0 ? '#00d4aa' : '#ff4d6d';
+    var latest=log.length?log[log.length-1].w:null;
+    var wtColor='#00d4aa';
+    var wtVal=latest?latest.toFixed(1)+' кг':'— кг';
+    var wtPct=0;
+    if(latest&&p.startWeight&&p.goalWeight){
+      var tn=Math.abs(p.goalWeight-p.startWeight);
+      var dn=Math.abs(latest-p.startWeight);
+      wtPct=tn>0?Math.min(100,Math.round(dn/tn*100)):0;
+      var diff=Math.round((latest-p.startWeight)*10)/10;
+      wtColor=diff<=0?'#00d4aa':'#ff4d6d';
+    }
+    var w=document.createElement('div');
+    w.style.cssText='border-radius:16px;padding:16px;cursor:pointer;overflow:hidden;position:relative;'
+      +'background:linear-gradient(135deg,'+wtColor+'28,'+wtColor+'08);'
+      +'border:1.5px solid '+wtColor+'55;';
+    w.onclick=function(){goPage('weight');};
+    w.innerHTML='<div style="position:absolute;top:-15px;right:-15px;width:70px;height:70px;border-radius:50%;background:'+wtColor+';opacity:.15"></div>'
+      +'<div style="font-size:26px;margin-bottom:4px">⚖️</div>'
+      +'<div style="font-size:10px;color:'+wtColor+';opacity:.7;text-transform:uppercase;letter-spacing:1px">Вес</div>'
+      +'<div style="font-family:Bebas Neue,sans-serif;font-size:30px;color:'+wtColor+';line-height:1.1">'+wtVal+'</div>'
+      +(wtPct>0
+        ?'<div style="height:4px;background:rgba(0,0,0,.25);border-radius:99px;overflow:hidden;margin-top:8px">'
+          +'<div style="height:100%;width:'+wtPct+'%;background:'+wtColor+';border-radius:99px;transition:width .5s"></div></div>'
+          +'<div style="font-size:11px;color:'+wtColor+';opacity:.6;margin-top:4px">'+wtPct+'% к цели</div>'
+        :'');
+    el.appendChild(w);
   }
 
-  } // end showW
-
-  // витамины
-  var vitColor = '#6c63ff';
-  var vitTotal=0, vitDone=0;
-  var todayKey = dk(new Date());
-  var vc = (D[todayKey]||{}).vitChecks||{};
-  vits.forEach(function(v){
-    ['morning','noon','eve'].forEach(function(t){
-      if(v[t]&&v[t].on){ vitTotal++; if(vc[v.id+'_'+t]) vitDone++; }
+  // Vit card
+  if(showV){
+    var vitColor='#6c63ff';
+    var vitTotal=0,vitDone=0;
+    var todayKey=dk(new Date());
+    var vc=(D[todayKey]||{}).vitChecks||{};
+    vits.forEach(function(v){
+      ['morning','noon','eve'].forEach(function(t){
+        if(v[t]&&v[t].on){vitTotal++;if(vc[v.id+'_'+t])vitDone++;}
+      });
     });
-  });
-  var vitPct = vitTotal>0 ? Math.round(vitDone/vitTotal*100) : 0;
-
-  el.innerHTML = '';
-  var showW = cfg.show_weight!==false;
-  var showV = cfg.show_vit!==false;
-
-  // карточка веса
-  var w = document.createElement('div');
-  w.style.cssText = 'border-radius:16px;padding:16px;cursor:pointer;overflow:hidden;position:relative;'
-    +'background:linear-gradient(135deg,'+wtColor+'28,'+wtColor+'08);'
-    +'border:1.5px solid '+wtColor+'55;';
-  w.onclick = function(){ goPage('weight'); };
-  w.innerHTML = '<div style="position:absolute;top:-15px;right:-15px;width:70px;height:70px;border-radius:50%;background:'+wtColor+';opacity:.15"></div>'
-    +'<div style="font-size:26px;margin-bottom:4px">⚖️</div>'
-    +'<div style="font-size:10px;color:'+wtColor+';opacity:.7;text-transform:uppercase;letter-spacing:1px">Вес</div>'
-    +'<div style="font-family:Bebas Neue,sans-serif;font-size:30px;color:'+wtColor+';line-height:1.1">'+wtVal+'</div>'
-    +(wtPct>0
-      ?'<div style="height:4px;background:rgba(0,0,0,.25);border-radius:99px;overflow:hidden;margin-top:8px">'
-        +'<div style="height:100%;width:'+wtPct+'%;background:'+wtColor+';border-radius:99px;transition:width .5s"></div></div>'
-        +'<div style="font-size:11px;color:'+wtColor+';opacity:.6;margin-top:4px">'+wtPct+'% к цели</div>'
-      :'');
-  el.appendChild(w);
-
-  // карточка витаминов
-  var v2 = document.createElement('div');
-  var vitDisp = vitTotal>0 ? vitPct+'%' : '—';
-  v2.style.cssText = 'border-radius:16px;padding:16px;cursor:pointer;overflow:hidden;position:relative;'
-    +'background:linear-gradient(135deg,'+vitColor+'28,'+vitColor+'08);'
-    +'border:1.5px solid '+vitColor+'55;';
-  v2.onclick = function(){ goPage('vit'); };
-  v2.innerHTML = '<div style="position:absolute;top:-15px;right:-15px;width:70px;height:70px;border-radius:50%;background:'+vitColor+';opacity:.15"></div>'
-    +'<div style="font-size:26px;margin-bottom:4px">💊</div>'
-    +'<div style="font-size:10px;color:'+vitColor+';opacity:.7;text-transform:uppercase;letter-spacing:1px">Витамины</div>'
-    +'<div style="font-family:Bebas Neue,sans-serif;font-size:30px;color:'+vitColor+';line-height:1.1">'+vitDisp+'</div>'
-    +(vitTotal>0
-      ?'<div style="height:4px;background:rgba(0,0,0,.25);border-radius:99px;overflow:hidden;margin-top:8px">'
-        +'<div style="height:100%;width:'+vitPct+'%;background:'+vitColor+';border-radius:99px;transition:width .5s"></div></div>'
-        +'<div style="font-size:11px;color:'+vitColor+';opacity:.6;margin-top:4px">'+vitDone+' из '+vitTotal+' доз</div>'
-      :'<div style="font-size:11px;color:'+vitColor+';opacity:.5;margin-top:6px">Нет расписания</div>');
-  el.appendChild(v2);
+    var vitPct=vitTotal>0?Math.round(vitDone/vitTotal*100):0;
+    var vitDisp=vitTotal>0?vitPct+'%':'—';
+    var v2=document.createElement('div');
+    v2.style.cssText='border-radius:16px;padding:16px;cursor:pointer;overflow:hidden;position:relative;'
+      +'background:linear-gradient(135deg,'+vitColor+'28,'+vitColor+'08);'
+      +'border:1.5px solid '+vitColor+'55;';
+    v2.onclick=function(){goPage('vit');};
+    v2.innerHTML='<div style="position:absolute;top:-15px;right:-15px;width:70px;height:70px;border-radius:50%;background:'+vitColor+';opacity:.15"></div>'
+      +'<div style="font-size:26px;margin-bottom:4px">💊</div>'
+      +'<div style="font-size:10px;color:'+vitColor+';opacity:.7;text-transform:uppercase;letter-spacing:1px">Витамины</div>'
+      +'<div style="font-family:Bebas Neue,sans-serif;font-size:30px;color:'+vitColor+';line-height:1.1">'+vitDisp+'</div>'
+      +(vitTotal>0
+        ?'<div style="height:4px;background:rgba(0,0,0,.25);border-radius:99px;overflow:hidden;margin-top:8px">'
+          +'<div style="height:100%;width:'+vitPct+'%;background:'+vitColor+';border-radius:99px;transition:width .5s"></div></div>'
+          +'<div style="font-size:11px;color:'+vitColor+';opacity:.6;margin-top:4px">'+vitDone+' из '+vitTotal+' доз</div>'
+        :'<div style="font-size:11px;color:'+vitColor+';opacity:.5;margin-top:6px">Нет расписания</div>');
+    el.appendChild(v2);
+  }
 }
-
-
-
-
-
-var _wlDays = 7;
 function getWeightLogFiltered(days){
   var log = D.weightLog||[];
   if(!days) return log.slice();
