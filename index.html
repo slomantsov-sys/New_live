@@ -2107,7 +2107,7 @@ function renderTaskManager(){
             +'<div class="tm-goal-fields" style="margin-top:6px">'
             +'<span style="font-size:12px;color:var(--mu);flex-shrink:0">За:</span>'
             +'<input class="tm-inp num" id="tmpd_'+h.id+'" type="number" placeholder="30" value="'+(h.period_days||'')+'" oninput="tmSavePeriodDays(\''+h.id+'\')" style="width:65px">'
-            +'<span style="font-size:12px;color:var(--mu)">дней</span>'
+            +'<span style="font-size:12px;color:var(--mu)">дн. с: </span>'            +'<input class="tm-inp" id="tmps_'+h.id+'" type="date" value="'+(h.period_start||dk(new Date()))+'" data-hid="'+h.id+'" oninput="tmSavePeriodStart(this)" style="flex:1;font-size:11px;color-scheme:dark;min-width:90px;padding:3px 5px">'
             +(h.period_days&&h.period_days>0?'<span style="font-size:11px;color:var(--a2);margin-left:4px">до '+tmPeriodEndStr(h)+'</span>':'')
             +'</div>'
           :'')
@@ -2155,6 +2155,11 @@ function tmPeriodEndStr(h){
 }
 // Get effective end date for a habit's period goal
 
+function tmSavePeriodStart(el){
+  var id=el.getAttribute('data-hid');
+  var h=D.habits.filter(function(x){return x.id===id;})[0];if(!h)return;
+  if(el.value){h.period_start=el.value;sv('trk_v9',D);}
+}
 function tmSavePeriodDays(id){
   var h=D.habits.filter(function(h){return h.id===id;})[0];if(!h)return;
   var el=document.getElementById('tmpd_'+id);if(el)h.period_days=parseInt(el.value)||0;
