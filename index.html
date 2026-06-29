@@ -285,11 +285,13 @@ body{background:var(--bg);color:var(--tx);font-family:'Golos Text',sans-serif;mi
   <div class="rp" id="rP" style="color:var(--mu)">0%</div>
 
   <!-- Period scale — segments glow when reached -->
-  <div style="display:flex;gap:3px;margin:10px 0 14px;border-radius:10px;overflow:hidden;height:24px">
-    <div id="rseg0" style="flex:50;background:rgba(107,107,128,.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--mu);transition:background .5s">В процессе</div>
-    <div id="rseg1" style="flex:10;background:rgba(255,159,28,.15);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#ff9f1c;transition:background .5s">🤙50%</div>
-    <div id="rseg2" style="flex:20;background:rgba(0,212,170,.15);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#00d4aa;transition:background .5s">🧠60%</div>
-    <div id="rseg3" style="flex:20;background:rgba(255,77,109,.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#ff4d6d;transition:background .5s">🔱80%</div>
+  <div style="display:flex;gap:2px;margin:10px 0 14px;border-radius:10px;overflow:hidden;height:24px">
+    <div id="rseg0" style="flex:20;background:rgba(107,107,128,.2);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:var(--mu);transition:background .5s">💪20%</div>
+    <div id="rseg1" style="flex:20;background:rgba(255,159,28,.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#ff9f1c;transition:background .5s">🚀40%</div>
+    <div id="rseg2" style="flex:20;background:rgba(255,209,102,.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#ffd166;transition:background .5s">🌟60%</div>
+    <div id="rseg3" style="flex:20;background:rgba(0,212,170,.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#00d4aa;transition:background .5s">🧠80%</div>
+    <div id="rseg4" style="flex:10;background:rgba(200,80,255,.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#c850ff;transition:background .5s">⚡90%</div>
+    <div id="rseg5" style="flex:10;background:rgba(255,77,109,.2);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#ff4d6d;transition:background .5s">🔱</div>
   </div>
 
   <!-- Today score -->
@@ -324,8 +326,10 @@ body{background:var(--bg);color:var(--tx);font-family:'Golos Text',sans-serif;mi
 <div class="ds" id="dstrip"></div>
 <div style="margin-top:10px"><div class="tbadge"><span>●</span><span id="todayLbl">Сегодня</span></div></div>
 
+<div id="habits_section_wrap">
 <div class="st">✅ Привычки</div>
 <div class="hg" id="hGrid"></div>
+</div>
 
 <div class="st">🔥 Стрик</div>
 <div style="background:var(--card);border:1px solid var(--b);border-radius:14px;padding:12px;">
@@ -398,14 +402,30 @@ body{background:var(--bg);color:var(--tx);font-family:'Golos Text',sans-serif;mi
     style="flex:1;background:linear-gradient(135deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border:1.5px solid rgba(108,99,255,.4);border-radius:14px;padding:14px 8px;cursor:pointer;transition:all .2s;opacity:1">
     <div style="font-size:28px;margin-bottom:4px">👨</div>
     <div style="font-size:13px;font-weight:700;color:var(--tx)">Мужчина</div>
-    <div style="font-size:10px;color:var(--mu);margin-top:2px">БОГ · ГЕНИЙ · МОЛОДЕЦ</div>
+    <div style="font-size:10px;color:var(--mu);margin-top:2px">БОГ · МОНСТР · ГЕНИЙ</div>
   </button>
   <button class="gender-btn" data-gender="female" onclick="saveGender('female')"
     style="flex:1;background:linear-gradient(135deg,rgba(255,77,109,.2),rgba(255,77,109,.08));border:1.5px solid rgba(255,77,109,.4);border-radius:14px;padding:14px 8px;cursor:pointer;transition:all .2s;opacity:0.35">
     <div style="font-size:28px;margin-bottom:4px">👩</div>
     <div style="font-size:13px;font-weight:700;color:var(--tx)">Женщина</div>
-    <div style="font-size:10px;color:var(--mu);margin-top:2px">БОГИНЯ · ИМПЕРАТРИЦА · КРАСОТКА</div>
+    <div style="font-size:10px;color:var(--mu);margin-top:2px">БОГИНЯ · ИМПЕРАТРИЦА · ЦАРИЦА</div>
   </button>
+</div>
+
+<div class="sh">🏠 Главная страница</div>
+<div style="background:var(--s);border-radius:14px;padding:12px 14px;margin-bottom:8px;display:flex;flex-direction:column;gap:10px">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div><div style="font-size:14px;font-weight:600">✅ Привычки</div><div style="font-size:11px;color:var(--mu)">Показывать на главной</div></div>
+    <label class="tog"><input type="checkbox" id="tog_habits" onchange="toggleMainSection('habits',this.checked)" checked><span class="tsl"></span></label>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div><div style="font-size:14px;font-weight:600">⚖️ Вес</div><div style="font-size:11px;color:var(--mu)">Мини-виджет на главной</div></div>
+    <label class="tog"><input type="checkbox" id="tog_weight" onchange="toggleMainSection('weight',this.checked)" checked><span class="tsl"></span></label>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div><div style="font-size:14px;font-weight:600">💊 Витамины</div><div style="font-size:11px;color:var(--mu)">Мини-виджет на главной</div></div>
+    <label class="tog"><input type="checkbox" id="tog_vit" onchange="toggleMainSection('vit',this.checked)" checked><span class="tsl"></span></label>
+  </div>
 </div>
 
 <div class="sh">📆 Период</div>
@@ -932,13 +952,14 @@ var ALL_EMOJIS=['⭐','🎯','📝','🏆','💡','🔑','🧘','🎵','✍️',
 var QQ=['Каждый день — это шанс стать лучше.','Дисциплина — это выбор между тем, чего ты хочешь сейчас, и тем, чего ты хочешь больше всего.','Маленькие шаги каждый день — это большой путь за год.','Никто не сделает это за тебя.','Успех не приходится сам — его ломают отговорки.','Ты либо растёшь, либо деградируешь.','Оглянешься в конце и скажешь: я это сделал.'];
 
 function sv(k,v){
+  if(k==='trk_v9' && v && !v._savedAt) v._savedAt=new Date().toISOString();
   try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}
   // Auto-upload to Firebase after every save (debounced)
   if(k==='trk_v9' && _fbDb && _fbUid && !_fbLoading){
     clearTimeout(sv._t);
     sv._t=setTimeout(function(){
       _fbDb.collection('users').doc(_fbUid).collection('data').doc('main').set({
-        d:JSON.stringify(D), t:new Date().toISOString()
+        d:JSON.stringify(D), t:(D._savedAt||new Date().toISOString())
       }).then(function(){
         var el=document.getElementById('fb_last_sync');
         if(el) el.textContent='☁️ '+new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'});
@@ -1052,17 +1073,22 @@ function avgScore(){
 }
 
 function scoreRank(s){
-  var female = D.profile && D.profile.gender === 'female';
-  if(s>=0.8)return{lvl:3,label:female?'БОГИНЯ':'БОГ',         emoji:'🔱',color:'#ff4d6d',sub:female?'80%+ — ты на вершине, богиня!':'80%+ за 4 недели — ты на вершине!'};
-  if(s>=0.6)return{lvl:2,label:female?'ИМПЕРАТРИЦА':'ГЕНИЙ',  emoji:female?'👑':'🧠',color:'#00d4aa',sub:female?'60–80% — великолепный результат!':'60–80% за 4 недели — отличный результат'};
-  if(s>=0.5)return{lvl:1,label:female?'КРАСОТКА':'МОЛОДЕЦ',   emoji:female?'💅':'🤙',color:'#ff9f1c',sub:female?'50–60% — ты в деле, красотка!':'50–60% за 4 недели — ты в деле'};
-  return      {lvl:0,label:female?'МАРАФЕЧУСЬ':'В ПРОЦЕССЕ',emoji:'💪',color:'#6b6b80',sub:female?'Меньше 50% — продолжаем марафон!':'Меньше 50% — давай больше!'};
+  var f=D.profile&&D.profile.gender==='female';
+  if(s>=0.9)return{lvl:5,label:f?'БОГИНЯ':'БОГ',          emoji:'🔱',color:'#ff4d6d',sub:f?'90%+ — ты на вершине, богиня!':'90%+ — ты на вершине!'};
+  if(s>=0.8)return{lvl:4,label:f?'ИМПЕРАТРИЦА':'МОНСТР',   emoji:f?'👑':'⚡',color:'#c850ff',sub:f?'80–90% — ты императрица!':'80–90% — ты монстр продуктивности!'};
+  if(s>=0.6)return{lvl:3,label:f?'ЦАРИЦА':'ГЕНИЙ',         emoji:f?'💎':'🧠',color:'#00d4aa',sub:f?'60–80% — ты царица своей жизни!':'60–80% — отличный результат!'};
+  if(s>=0.4)return{lvl:2,label:f?'МОЛОДЧИНА':'МОЖЕШЬ ГОРДИТЬСЯ',emoji:'🌟',color:'#ffd166',sub:f?'40–60% — ты молодчина!':'40–60% — можешь гордиться собой!'};
+  if(s>=0.2)return{lvl:1,label:'ДВИГАЕШЬСЯ',               emoji:'🚀',color:'#ff9f1c',sub:'20–40% — движешься в правильном направлении!'};
+  return      {lvl:0,label:f?'МАРАФЕЧУСЬ':'В ПРОЦЕССЕ',   emoji:'💪',color:'#6b6b80',sub:f?'До 20% — продолжаем марафон!':'До 20% — давай, ты можешь!'};
 }
 function dayScoreRank(s){
-  if(s>=0.8)return{color:'#ff4d6d',label:'🔱 БОГ'};
-  if(s>=0.6)return{color:'#00d4aa',label:'🧠 Гений'};
-  if(s>=0.5)return{color:'#ff9f1c',label:'🤙 Молодец'};
-  return      {color:'#6b6b80',label:'💪 В процессе'};
+  var f=D.profile&&D.profile.gender==='female';
+  if(s>=0.9)return{color:'#ff4d6d',label:'🔱 '+(f?'Богиня':'БОГ')};
+  if(s>=0.8)return{color:'#c850ff',label:(f?'👑 Императрица':'⚡ Монстр')};
+  if(s>=0.6)return{color:'#00d4aa',label:(f?'💎 Царица':'🧠 Гений')};
+  if(s>=0.4)return{color:'#ffd166',label:'🌟 '+(f?'Молодчина':'Гордость')};
+  if(s>=0.2)return{color:'#ff9f1c',label:'🚀 Двигаешься'};
+  return      {color:'#6b6b80',label:'💪 '+(f?'Марафечусь':'В процессе')};
 }
 
 function updateRankForDay(key){
@@ -1083,10 +1109,12 @@ function updateRankForDay(key){
   var rG=document.getElementById('rGlow');if(rG)rG.style.background=r.color;
   // Scale segments
   var segs=[
-    {id:'rseg0',min:0,  max:50, baseColor:'rgba(107,107,128,.2)', activeColor:'rgba(107,107,128,.6)'},
-    {id:'rseg1',min:50, max:60, baseColor:'rgba(255,159,28,.15)', activeColor:'rgba(255,159,28,.7)'},
-    {id:'rseg2',min:60, max:80, baseColor:'rgba(0,212,170,.15)',  activeColor:'rgba(0,212,170,.7)'},
-    {id:'rseg3',min:80, max:101,baseColor:'rgba(255,77,109,.2)',  activeColor:'rgba(255,77,109,.8)'}
+    {id:'rseg0',min:0,  max:20, baseColor:'rgba(107,107,128,.2)', activeColor:'rgba(107,107,128,.65)'},
+    {id:'rseg1',min:20, max:40, baseColor:'rgba(255,159,28,.15)', activeColor:'rgba(255,159,28,.7)'},
+    {id:'rseg2',min:40, max:60, baseColor:'rgba(255,209,102,.15)',activeColor:'rgba(255,209,102,.7)'},
+    {id:'rseg3',min:60, max:80, baseColor:'rgba(0,212,170,.15)',  activeColor:'rgba(0,212,170,.7)'},
+    {id:'rseg4',min:80, max:90, baseColor:'rgba(200,80,255,.15)', activeColor:'rgba(200,80,255,.7)'},
+    {id:'rseg5',min:90, max:101,baseColor:'rgba(255,77,109,.2)',  activeColor:'rgba(255,77,109,.85)'}
   ];
   segs.forEach(function(seg){
     var el=document.getElementById(seg.id);if(!el)return;
@@ -1623,6 +1651,12 @@ function loadSettingsPage(){
   loadProfile();
   renderToolbarSettings();
 }
+  // Update display toggles
+  var cfg2=D.cfg||{};
+  var th=document.getElementById('tog_habits');if(th)th.checked=cfg2.show_habits!==false;
+  var tw=document.getElementById('tog_weight');if(tw)tw.checked=cfg2.show_weight!==false;
+  var tv=document.getElementById('tog_vit');if(tv)tv.checked=cfg2.show_vit!==false;
+
   // Update gender buttons
   var g = D.profile && D.profile.gender || 'male';
   document.querySelectorAll('.gender-btn').forEach(function(b){
@@ -1898,7 +1932,7 @@ function doReset(){
   if(v!=="СБРОС")return;
   // Reset local data — block auto-sync during reset
   _fbLoading=true;
-  D={cfg:{periodStart:"2026-06-01",periodEnd:"2026-08-01"},habits:[],toolbars:[],vitamins:[],profile:{},weightLog:[],onetasks:[]};
+  D={cfg:{periodStart:"2026-06-01",periodEnd:"2026-08-01"},habits:[],toolbars:[],vitamins:[],profile:{},weightLog:[],onetasks:[],_savedAt:new Date().toISOString()};
   SD=parseLocalDate("2026-06-01");ED=parseLocalDate("2026-08-01");TD=62;
   localStorage.removeItem("trk_v9");
   try{localStorage.setItem('trk_v9',JSON.stringify(D));}catch(e){}
@@ -2207,6 +2241,16 @@ function tmTogUsePgoal(id){
 // ═══════════════════════════════════════════════════
 if(!D.profile) D.profile = {height:0, age:0, startWeight:0, goalWeight:0};
 if(!D.weightLog) D.weightLog = []; // [{d:'2026-06-01', w:82.5}]
+
+function toggleMainSection(key, val){
+  if(!D.cfg) D.cfg={};
+  if(key==='habits') D.cfg.show_habits=val;
+  if(key==='weight') D.cfg.show_weight=val;
+  if(key==='vit')    D.cfg.show_vit=val;
+  sv('trk_v9',D);
+  renderHabits();
+  renderMainMiniWidgets();
+}
 
 function saveGender(val){
   if(!D.profile) D.profile={};
@@ -2736,6 +2780,79 @@ function addVitamin(){
   renderVitamins();
 }
 
+var _vitEditEmoji='💊';
+function openVitEdit(id){
+  var v=D.vitamins.filter(function(x){return x.id===id;})[0];if(!v)return;
+  _vitEditEmoji=v.emoji||'💊';
+  document.getElementById('ve_id').value=id;
+  document.getElementById('ve_name').value=v.name||'';
+  document.getElementById('ve_notes').value=v.notes||'';
+  document.getElementById('ve_emoji_btn').textContent=_vitEditEmoji;
+  document.getElementById('ve_morning_on').checked=!!(v.morning&&v.morning.on);
+  document.getElementById('ve_morning_dose').value=(v.morning&&v.morning.dose)||'';
+  document.getElementById('ve_noon_on').checked=!!(v.noon&&v.noon.on);
+  document.getElementById('ve_noon_dose').value=(v.noon&&v.noon.dose)||'';
+  document.getElementById('ve_eve_on').checked=!!(v.eve&&v.eve.on);
+  document.getElementById('ve_eve_dose').value=(v.eve&&v.eve.dose)||'';
+  document.getElementById('vit_edit_modal').style.display='flex';
+}
+function toggleVitEditEP(){
+  var w=document.getElementById('ve_ep_wrap');
+  w.style.display=w.style.display==='none'?'block':'none';
+  if(w.style.display==='block'){
+    var g=document.getElementById('ve_ep_grid');g.innerHTML='';
+    ALL_EMOJIS.forEach(function(em){
+      var b=document.createElement('button');b.className='ep-btn'+(_vitEditEmoji===em?' sel':'');b.textContent=em;
+      b.onclick=function(){_vitEditEmoji=em;document.getElementById('ve_emoji_btn').textContent=em;document.getElementById('ve_ep_wrap').style.display='none';};
+      g.appendChild(b);
+    });
+  }
+}
+function saveVitEdit(){
+  var id=document.getElementById('ve_id').value;
+  var v=D.vitamins.filter(function(x){return x.id===id;})[0];if(!v)return;
+  var nm=document.getElementById('ve_name').value.trim();if(nm)v.name=nm;
+  v.emoji=_vitEditEmoji;
+  v.notes=document.getElementById('ve_notes').value.trim();
+  v.morning={on:document.getElementById('ve_morning_on').checked,dose:document.getElementById('ve_morning_dose').value};
+  v.noon={on:document.getElementById('ve_noon_on').checked,dose:document.getElementById('ve_noon_dose').value};
+  v.eve={on:document.getElementById('ve_eve_on').checked,dose:document.getElementById('ve_eve_dose').value};
+  sv('trk_v9',D);
+  document.getElementById('vit_edit_modal').style.display='none';
+  renderVitamins();renderVitSettings();renderMainMiniWidgets();
+}
+function showVitArchive(){
+  var modal=document.getElementById('vit_archive_modal');
+  if(!modal) return;
+  var lines=[];
+  // Collect all days that have vitLog entries
+  var days=Object.keys(D).filter(function(k){return k.match(/^\d{4}-\d{2}-\d{2}$/) && D[k].vitLog;});
+  days.sort().reverse();
+  if(!days.length){
+    document.getElementById('vit_archive_list').innerHTML='<div style="color:var(--mu);text-align:center;padding:20px">Архив пуст</div>';
+  } else {
+    var html='';
+    days.forEach(function(day){
+      var log=D[day].vitLog||{};
+      var entries=Object.keys(log);
+      if(!entries.length) return;
+      html+='<div style="margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--mu);margin-bottom:6px">'+day+'</div>';
+      entries.forEach(function(vitId){
+        var v=D.vitamins.filter(function(x){return x.id===vitId;})[0];
+        var vname=v?v.emoji+' '+v.name:('ID: '+vitId);
+        var times=log[vitId];
+        html+='<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--s);border-radius:8px;margin-bottom:4px">'
+          +'<span style="flex:1;font-size:13px">'+vname+'</span>'
+          +'<span style="font-size:11px;color:var(--a2)">'+Object.keys(times).filter(function(t){return times[t];}).join(', ')+'</span>'
+          +'</div>';
+      });
+      html+='</div>';
+    });
+    document.getElementById('vit_archive_list').innerHTML=html||'<div style="color:var(--mu);text-align:center;padding:20px">Архив пуст</div>';
+  }
+  modal.style.display='flex';
+}
+
 function delVitamin(id){
   D.vitamins=D.vitamins.filter(function(v){return v.id!==id;});
   sv('trk_v9',D); renderVitamins(); renderMainMiniWidgets();
@@ -2859,8 +2976,14 @@ function renderVitSettings(){
     var sched=VIT_TIMES.filter(function(t){return v[t.key]&&v[t.key].on;}).map(function(t){return t.ico+' '+v[t.key].dose;}).join('  ');
     row.innerHTML='<span style="font-size:22px">'+v.emoji+'</span>'
       +'<div style="flex:1"><div style="font-weight:600;font-size:14px">'+v.name+'</div>'
-      +'<div style="font-size:11px;color:var(--mu)">'+sched+'</div></div>'
-      +'<button onclick="delVitamin(\''+v.id+'\')" style="background:none;border:none;color:var(--mu);font-size:20px;cursor:pointer;padding:4px">×</button>';
+      +'<div style="font-size:11px;color:var(--mu)">'+sched+'</div></div>';
+    var eb=document.createElement('button');
+    eb.textContent='✏️';eb.style.cssText='background:none;border:none;font-size:16px;cursor:pointer;padding:4px';
+    (function(vid){eb.onclick=function(){openVitEdit(vid);};})(v.id);
+    var db=document.createElement('button');
+    db.textContent='×';db.style.cssText='background:none;border:none;color:var(--mu);font-size:20px;cursor:pointer;padding:4px';
+    (function(vid){db.onclick=function(){delVitamin(vid);};})(v.id);
+    row.appendChild(eb);row.appendChild(db);
     el.appendChild(row);
   });
 }
@@ -2930,11 +3053,15 @@ function renderVitamins(){
 function renderMainMiniWidgets(){
   var el = document.getElementById('main_mini_widgets');
   if(!el) return;
+  var cfg=D.cfg||{};
+  if(cfg.show_weight===false && cfg.show_vit===false){el.innerHTML='';el.style.display='none';return;}
+  el.style.display='grid';
   var p = D.profile||{};
   var log = D.weightLog||[];
   var vits = D.vitamins||[];
 
   // вес
+  if(showW){
   var latest = log.length ? log[log.length-1].w : null;
   var wtColor = '#00d4aa';
   var wtVal = latest ? latest.toFixed(1)+' кг' : '— кг';
@@ -2946,6 +3073,8 @@ function renderMainMiniWidgets(){
     var diff = Math.round((latest - p.startWeight)*10)/10;
     wtColor = diff<=0 ? '#00d4aa' : '#ff4d6d';
   }
+
+  } // end showW
 
   // витамины
   var vitColor = '#6c63ff';
@@ -2960,6 +3089,8 @@ function renderMainMiniWidgets(){
   var vitPct = vitTotal>0 ? Math.round(vitDone/vitTotal*100) : 0;
 
   el.innerHTML = '';
+  var showW = cfg.show_weight!==false;
+  var showV = cfg.show_vit!==false;
 
   // карточка веса
   var w = document.createElement('div');
@@ -3002,7 +3133,6 @@ function renderMainMiniWidgets(){
 
 
 var _wlDays = 7;
-
 function getWeightLogFiltered(days){
   var log = D.weightLog||[];
   if(!days) return log.slice();
@@ -3243,11 +3373,14 @@ function fbSync(upload){
   if(!_fbDb||!_fbUid){ return; }
   var lastEl=document.getElementById('fb_last_sync');
   if(upload){
+    var saveTs=new Date().toISOString();
+    D._savedAt=saveTs; // timestamp inside data
     _fbDb.collection('users').doc(_fbUid).collection('data').doc('main').set({
-      d:JSON.stringify(D), t:new Date().toISOString()
+      d:JSON.stringify(D), t:saveTs
     }).then(function(){
       var now=new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'});
       if(lastEl) lastEl.textContent='☁️ '+now;
+      localStorage.setItem('fb_last_upload_t', saveTs);
     }).catch(function(e){ if(lastEl) lastEl.textContent='❌ '+e.message; });
   } else {
     _fbDb.collection('users').doc(_fbUid).collection('data').doc('main').get().then(function(doc){
@@ -3255,6 +3388,14 @@ function fbSync(upload){
         try{
           var raw=doc.data().d||doc.data().data; if(!raw) throw new Error('empty');
           var remote=JSON.parse(raw);
+          var cloudTs=doc.data().t||'';
+          var localTs=D._savedAt||localStorage.getItem('fb_last_upload_t')||'';
+          // If local is newer than cloud — upload instead of downloading
+          if(localTs && cloudTs && localTs>cloudTs){
+            console.log('[FB] Local is newer, uploading instead');
+            fbSync(true);
+            return;
+          }
           // Only apply if remote has habits/data (not empty reset placeholder)
           var remoteHasData=(remote.habits&&remote.habits.length>0)||(remote.weightLog&&remote.weightLog.length>0)||(remote.vitamins&&remote.vitamins.length>0);
           var localHasData=(D.habits&&D.habits.length>0)||(D.weightLog&&D.weightLog.length>0)||(D.vitamins&&D.vitamins.length>0);
@@ -3906,26 +4047,35 @@ function applyChallenge(){
 
   // Generate tasks — support template with params
   var tasksToAdd=d.onetasks||[];
-  if(d.generated_tasks){
-    // Challenge defines a generator function
+  // Support both single generated_tasks and array generated_tasks_list
+  var genList=[];
+  if(d.generated_tasks) genList=[d.generated_tasks];
+  if(d.generated_tasks_list) genList=d.generated_tasks_list;
+
+  if(genList.length){
     tasksToAdd=[];
-    var gen=d.generated_tasks;
-    var startReps=paramVals[gen.start_param]||gen.start_default||60;
-    var incPct=paramVals[gen.increment_param]||gen.increment_default||5;
-    var dates=gen.dates||[];
-    var groupSize=gen.group_size||3;
-    dates.forEach(function(dateStr, i){
-      var groupIdx=Math.floor(i/groupSize);
-      var reps=Math.round(startReps * Math.pow(1+incPct/100, groupIdx));
-      tasksToAdd.push({
-        name:gen.name_template.replace('{reps}',reps),
-        emoji:gen.emojis?gen.emojis[Math.min(groupIdx,gen.emojis.length-1)]:(gen.emoji||'💪'),
-        note:'Тренировка '+(i+1)+' из '+dates.length+(groupIdx>0?' · +'+Math.round(incPct)+'% к старту':''),
-        daily:false,
-        dueDate:dateStr,
-        toolbar:true,
-        no_rating:false,
-        no_rollover:true
+    genList.forEach(function(gen){
+      var startVal=paramVals[gen.start_param]||gen.start_default||60;
+      var incPct=paramVals[gen.increment_param]||gen.increment_default||5;
+      var dates=gen.dates||[];
+      var groupSize=gen.group_size||1; // default 1 = every day grows
+      dates.forEach(function(dateStr,i){
+        var groupIdx=Math.floor(i/groupSize);
+        var val=Math.round(startVal * Math.pow(1+incPct/100, groupIdx));
+        var em=gen.emojis?gen.emojis[Math.min(groupIdx,gen.emojis.length-1)]:(gen.emoji||'💪');
+        var note=gen.note_template
+          ?(gen.note_template.replace('{val}',val).replace('{i}',i+1).replace('{total}',dates.length))
+          :'День '+(i+1)+' из '+dates.length;
+        tasksToAdd.push({
+          name:gen.name_template.replace('{val}',val).replace('{reps}',val),
+          emoji:em,
+          note:note,
+          daily:false,
+          dueDate:dateStr,
+          toolbar:!!gen.toolbar,
+          no_rating:!!(gen.no_rating),
+          no_rollover:true
+        });
       });
     });
   }
@@ -4176,7 +4326,19 @@ init();
   </div>
 </div>
 
-<input type="file" id="imp_file" accept=".json" style="position:fixed;top:-100px;left:-100px;opacity:0;width:1px;height:1px" onchange="importData(event)">
+<div id="vit_edit_modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:16px"><div style="background:var(--card);border:1px solid var(--b);border-radius:18px;padding:20px;max-width:380px;width:100%;max-height:90vh;overflow-y:auto"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;margin-bottom:14px">✏️ РЕДАКТИРОВАТЬ ВИТАМИН</div><input type="hidden" id="ve_id"><div style="display:flex;gap:8px;align-items:center;margin-bottom:10px"><button id="ve_emoji_btn" onclick="toggleVitEditEP()" style="font-size:22px;background:var(--s);border:1.5px solid var(--b);border-radius:10px;width:42px;height:42px;cursor:pointer">💊</button><input class="txt-inp" id="ve_name" type="text" placeholder="Название" style="flex:1"></div><div id="ve_ep_wrap" style="display:none;margin-bottom:10px"><div class="ep-grid" id="ve_ep_grid"></div></div><div style="margin-bottom:12px"><div style="font-size:11px;color:var(--mu);margin-bottom:5px">Заметка</div><input class="txt-inp" id="ve_notes" type="text" placeholder="Как принимать..."></div><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px"><div style="background:var(--s);border-radius:10px;padding:10px 12px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><label class="tog" style="transform:scale(.85)"><input type="checkbox" id="ve_morning_on"><span class="tsl"></span></label><span style="font-size:14px;font-weight:600">🌅 Утро</span></div><input class="txt-inp" id="ve_morning_dose" placeholder="Доза" style="font-size:13px"></div><div style="background:var(--s);border-radius:10px;padding:10px 12px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><label class="tog" style="transform:scale(.85)"><input type="checkbox" id="ve_noon_on"><span class="tsl"></span></label><span style="font-size:14px;font-weight:600">☀️ Обед</span></div><input class="txt-inp" id="ve_noon_dose" placeholder="Доза" style="font-size:13px"></div><div style="background:var(--s);border-radius:10px;padding:10px 12px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><label class="tog" style="transform:scale(.85)"><input type="checkbox" id="ve_eve_on"><span class="tsl"></span></label><span style="font-size:14px;font-weight:600">🌙 Вечер</span></div><input class="txt-inp" id="ve_eve_dose" placeholder="Доза" style="font-size:13px"></div></div><div style="display:flex;gap:8px"><button onclick="saveVitEdit()" style="flex:1;background:var(--a2);border:none;border-radius:12px;padding:12px;color:#0a0a0f;font-family:'Golos Text',sans-serif;font-weight:700;font-size:15px;cursor:pointer">Сохранить</button><button onclick="document.getElementById('vit_edit_modal').style.display='none'" style="flex:1;background:var(--s);border:1px solid var(--b);border-radius:12px;padding:12px;color:var(--tx);font-family:'Golos Text',sans-serif;font-size:14px;cursor:pointer">Отмена</button></div></div></div>
+<!-- VITAMIN ARCHIVE MODAL -->
+<div id="vit_archive_modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--card);border:1px solid var(--b);border-radius:18px;padding:20px;max-width:400px;width:100%;max-height:85vh;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;margin-bottom:14px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;flex:1">📋 АРХИВ ВИТАМИНОВ</div>
+      <button onclick="document.getElementById('vit_archive_modal').style.display='none'" style="background:rgba(255,255,255,.08);border:none;border-radius:50%;width:32px;height:32px;color:var(--mu);font-size:18px;cursor:pointer">×</button>
+    </div>
+    <div id="vit_archive_list" style="overflow-y:auto;flex:1"></div>
+  </div>
+</div>
+
+<input type="file" id="imp_file"''' accept=".json" style="position:fixed;top:-100px;left:-100px;opacity:0;width:1px;height:1px" onchange="importData(event)">
 
 <div id="home_topbar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:90;background:var(--card);border-bottom:1px solid var(--b);padding:10px 16px;display:none;align-items:center;gap:10px">
   <button onclick="goPage('today')" style="background:linear-gradient(135deg,var(--a1),#ff9f1c);border:none;border-radius:10px;padding:8px 16px;color:white;font-family:'Golos Text',sans-serif;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px">🏠 Главная</button>
